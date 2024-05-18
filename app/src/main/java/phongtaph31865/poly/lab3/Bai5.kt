@@ -1,6 +1,7 @@
 package phongtaph31865.poly.lab3
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
@@ -26,9 +27,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import coil.compose.AsyncImage
 
-class Bai5 : AppCompatActivity() {
+private data class ItemThanhToan (var color: Color, var idRes: Int, var title: String)
+class Bai5 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -44,12 +47,14 @@ class Bai5 : AppCompatActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.DarkGray),
+                .background(color = Color("#262221".toColorInt())),
 
         ) {
             GetTextTitle(title = title)
             Row (
-                modifier = Modifier.fillMaxWidth().height(3.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(3.dp)
                     .background(color = Color.Black)
                     .padding(20.dp)
             ){
@@ -85,24 +90,24 @@ class Bai5 : AppCompatActivity() {
             }
 
             GetRowItem(
-                color = Color.Yellow,
-                "https://upload.wikimedia.org/wikipedia/commons/2/20/FPT_Polytechnic.png",
+                color = Color("#fa8500".toColorInt()),
+                R.drawable.ic_paypal,
                 "PayPal"
             )
             GetRowItem(
-                color = Color.Cyan,
-                "https://gcs.tripi.vn/public-tripi/tripi-feed/img/475223TdJ/anh-mo-ta.png",
+                color = Color("#ec1287".toColorInt()),
+                R.drawable.ic_momo,
                 "Momo"
             )
             GetRowItem(
-                color = Color.Magenta,
-                "https://images2.thanhnien.vn/528068263637045248/2023/2/15/bong-da-sv-2aa-16764457958392020821477.jpg",
+                color = Color("#01c2fe".toColorInt()),
+                R.drawable.ic_zalo_pay,
                 "Zalo Pay"
             )
             GetRowItem(
                 color = Color.White,
-                "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2023/3/20/1159566/Bong-Da-Phui.jpg",
-                "VN Pay"
+                R.drawable.ic_visa,
+                "Visa"
             )
         }
     }
@@ -131,20 +136,20 @@ class Bai5 : AppCompatActivity() {
     }
 
     @Composable
-    fun GetRowItem(color: Color, linkImg: String, nd: String) {
+    fun GetRowItem(color: Color, linkImg: Int, nd: String) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(5.dp)
-                .background(color = color, shape = RoundedCornerShape(15.dp))
+                .padding(start = 20.dp, end = 20.dp, top = 7.dp, bottom = 5.dp)
+                .background(color = color, shape = RoundedCornerShape(10.dp))
                 .height(70.dp)
                 .fillMaxWidth()
         ) {
-            AsyncImage(
-                model = linkImg,
+            Image(
+                painter = painterResource(id = linkImg),
                 modifier = Modifier
                     .width(60.dp)
-                    .height(5.dp)
+                    .height(60.dp)
                     .padding(start = 20.dp),
                 contentDescription = null
             )
@@ -152,7 +157,7 @@ class Bai5 : AppCompatActivity() {
                 text = nd,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(10.dp),
+                    .padding(start = 30.dp),
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
             )
